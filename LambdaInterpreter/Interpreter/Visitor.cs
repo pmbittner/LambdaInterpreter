@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Antlr;
 using Antlr4.Runtime.Misc;
 using Antlr4.Runtime.Tree;
@@ -9,16 +8,12 @@ namespace LambdaInterpreter.Interpreter
 {
     public class Visitor : LambdaParserBaseVisitor<Term>
     {
-        private int indent = 0;
-    
-        String getIndent()
-        {
-            return String.Concat(Enumerable.Repeat("    ", indent));
-        }
+        DebugPrint debug;
 
-        void print(String s)
+        public Visitor()
         {
-            //Console.WriteLine(getIndent() + s);
+            debug = new DebugPrint();
+            debug.Enabled = false;
         }
 
         protected override Term AggregateResult(Term aggregate, Term nextResult)
@@ -38,19 +33,19 @@ namespace LambdaInterpreter.Interpreter
 
         public override Term VisitTerm([NotNull] LambdaParser.TermContext context)
         {
-            print("[VisitTerm] START");
-            ++indent;
+            debug.Print("[VisitTerm] START");
+            debug.IncIndent();
             if (context.ChildCount == 1)
             {
-                print("SINGLE CHILD");
+                debug.Print("SINGLE CHILD");
                 Term t = base.VisitTerm(context);
-                print(t.ToString());
+                debug.Print(t.ToString());
                 
-                --indent;
-                print("[VisitTerm] END");
+                debug.DecIndent();
+                debug.Print("[VisitTerm] END");
                 return t;
             }
-            print("MULIPLE CHILDREN");
+            debug.Print("MULIPLE CHILDREN");
             
             Application application = new Application();
             
@@ -66,35 +61,35 @@ namespace LambdaInterpreter.Interpreter
                 
                 if (application.Left == null)
                 {
-                    print("set left = " + term);
+                    debug.Print("set left = " + term);
                     application.Left = term;
                 }
                 else 
                 {
-                    print("set right = " + term);
+                    debug.Print("set right = " + term);
                     application.Right = term;
 
                     // if not last child
                     if (i < context.ChildCount - 1)
                     {
-                        print("restructure");
+                        debug.Print("restructure");
                         Application next = new Application();
                         next.Left = application;
                         application = next;
                     }
                 }
             }
-            print("multi = " + application);
-            --indent;
-            print("[VisitTerm] END");
+            debug.Print("multi = " + application);
+            debug.DecIndent();
+            debug.Print("[VisitTerm] END");
 
             return application;
         }
 
         public override Term VisitFunction(LambdaParser.FunctionContext context)
         {
-            print("[VisitFunction] START");
-            ++indent;
+            debug.Print("[VisitFunction] START");
+            debug.IncIndent();
             Function function = new Function();
 
             foreach (LambdaParser.VariableContext parameter in context._parameters)
@@ -104,15 +99,15 @@ namespace LambdaInterpreter.Interpreter
             
             function.Body = VisitTerm(context.term());
             
-            print($"{function}");
-            --indent;
-            print("[VisitFunction] END");
+            debug.Print($"{function}");
+            debug.DecIndent();
+            debug.Print("[VisitFunction] END");
             return function;
         }
         
         public override Term VisitVariable([NotNull] LambdaParser.VariableContext context)
         {
-            print($"[VisitVariable] {context.GetText()}");
+            debug.Print($"[VisitVariable] {context.GetText()}");
             return new Variable(context.GetText());
         }
     }
