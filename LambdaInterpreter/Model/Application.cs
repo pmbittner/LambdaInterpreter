@@ -31,7 +31,7 @@ namespace LambdaInterpreter.model
 
         public override Term Substitute(Variable prev, Term now)
         {
-            // We have to clone such that the same object won't be referenced in two places.
+            // We have to clone such that the same term object won't be referenced in two places.
             // Modifications in one place of the term could lead to simultaneous modifications in other
             // parts of the term which is incorrect!
             Left = Left.Substitute(prev, now);
