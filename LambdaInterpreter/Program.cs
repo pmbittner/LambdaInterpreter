@@ -1,7 +1,6 @@
 ﻿using System;
-using Antlr4.Runtime;
-using LambdaInterpreter.Interpreter;
 using LambdaInterpreter.model;
+using LambdaInterpreter.Parsing;
 
 namespace LambdaInterpreter
 {
@@ -42,7 +41,7 @@ namespace LambdaInterpreter
 
             String fileToRun = args[0];
             LambdaFileParser parser = new AntlrRunner();
-            Term program = parser.parseFile(fileToRun);
+            Term program = parser.ParseFile(fileToRun);
             Console.WriteLine($"Input:\n{program}\n");
             //Console.WriteLine(program.ToIDString());
             

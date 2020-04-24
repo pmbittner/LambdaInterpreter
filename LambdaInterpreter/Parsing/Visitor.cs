@@ -4,7 +4,7 @@ using Antlr4.Runtime.Misc;
 using Antlr4.Runtime.Tree;
 using LambdaInterpreter.model;
 
-namespace LambdaInterpreter.Interpreter
+namespace LambdaInterpreter.Parsing
 {
     public class Visitor : LambdaParserBaseVisitor<Term>
     {

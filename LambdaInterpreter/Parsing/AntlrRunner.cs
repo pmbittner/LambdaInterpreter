@@ -2,11 +2,11 @@
 using Antlr4.Runtime;
 using LambdaInterpreter.model;
 
-namespace LambdaInterpreter.Interpreter
+namespace LambdaInterpreter.Parsing
 {
     public class AntlrRunner : LambdaFileParser
     {
-        public Term parseFile(String path)
+        public Term ParseFile(String path)
         {
             ICharStream stream = CharStreams.fromstring(IO.TextFileIO.readFile(path));
             ITokenSource lexer = new Antlr.LambdaLexer(stream);

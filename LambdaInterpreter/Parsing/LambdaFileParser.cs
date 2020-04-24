@@ -1,10 +1,10 @@
 ﻿using System;
 using LambdaInterpreter.model;
 
-namespace LambdaInterpreter.Interpreter
+namespace LambdaInterpreter.Parsing
 {
     public interface LambdaFileParser
     {
-        public Term parseFile(String path);
+        public Term ParseFile(String path);
     }
 }
