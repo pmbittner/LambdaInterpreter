@@ -76,10 +76,10 @@ namespace LambdaInterpreter.model
 
         public override Term Substitute(Variable prev, Term now)
         {
-            // If prev is a free variable in Body
+            // if prev is a free variable in Body
             if (Parameters.TrueForAll(p => !p.NameEquals(prev)))
             {
-                // If one parameter is a free variable in 'now' we have alpha reduce.
+                // If one parameter is a free variable in 'now' we have to alpha reduce.
                 List<Variable> freeVariables = now.GetFreeVariables();
 
                 // That means, we rename all parameters whose names equal a free variable in 'now'.

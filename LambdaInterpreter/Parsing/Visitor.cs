@@ -56,7 +56,7 @@ namespace LambdaInterpreter.Interpreter
 
                 if (term == null)
                 {
-                    Console.WriteLine("TERM IS NULL AAAAAA");
+                    throw new NullReferenceException();
                 }
                 
                 if (application.Left == null)

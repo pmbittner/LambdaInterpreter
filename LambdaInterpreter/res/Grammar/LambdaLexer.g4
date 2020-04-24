@@ -1,9 +1,14 @@
 lexer grammar LambdaLexer;
 
-WS: [ \r\n\t]+ -> skip;
+WS: [ \t]+ -> skip;
+LINEBREAK: [\n\r] -> skip;
+
+IDENTIFIER: [a-zA-Z_] [a-zA-Z_0-9]*;
 
 LAMBDA: '\\';
-IDENTIFIER: [a-zA-Z_] [a-zA-Z_0-9]*;
 BRACKET_L: '(';
 BRACKET_R: ')';
 DOT: '.';
+END_EXPRESSION: ';';
+
+DEFINE_ALIAS: ':=';
