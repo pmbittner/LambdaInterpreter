@@ -39,18 +39,18 @@ namespace LambdaInterpreter.model
             return this;
         }
         
-        internal override Term Eval(EvaluationOptions options)
+        internal override Term Evaluate(EvaluationOptions options)
         {
             if (!Array.Exists(new []{EvaluationOptions.Type.Applicative, EvaluationOptions.Type.Normative}, t => t == options.EvalType))
             {
                 throw new NotImplementedException();
             }
 
-            Left = Left.Eval(options);
+            Left = Left.Evaluate(options);
 
             if (options.EvalType == EvaluationOptions.Type.Applicative)
             {
-                Right = Right.Eval(options);
+                Right = Right.Evaluate(options);
             }
 
             if (Left is Function f)
@@ -58,12 +58,12 @@ namespace LambdaInterpreter.model
                 Left = f.BetaReduce(Right);
                 Right = null;
                 options.Step();
-                return Left.Eval(options);
+                return Left.Evaluate(options);
             }
 
             if (options.EvalType == EvaluationOptions.Type.Normative)
             {
-                Right = Right.Eval(options);
+                Right = Right.Evaluate(options);
             }
 
             return this;

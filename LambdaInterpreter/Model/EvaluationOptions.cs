@@ -17,7 +17,11 @@ namespace LambdaInterpreter.model
             }
         }
 
-        public Type EvalType { get; set; } = Type.Normative;
+        public Type EvalType
+        {
+            get;
+            set;
+        } = Type.Normative;
 
         public bool PrintSteps { get; set; } = false;
         

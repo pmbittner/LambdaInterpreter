@@ -1,1 +1,2 @@
-﻿(\x y. y x) second first;
+﻿swap := \x y. y x;
+swap second first;

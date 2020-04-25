@@ -54,7 +54,7 @@ namespace LambdaInterpreter.model
             return this;
         }
 
-        internal override Term Eval(EvaluationOptions options)
+        internal override Term Evaluate(EvaluationOptions options)
         {
             return this;
         }

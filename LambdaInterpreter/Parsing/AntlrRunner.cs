@@ -12,7 +12,7 @@ namespace LambdaInterpreter.Parsing
             ITokenSource lexer = new Antlr.LambdaLexer(stream);
             ITokenStream tokens = new CommonTokenStream(lexer);
             Antlr.LambdaParser parser = new Antlr.LambdaParser(tokens);
-            return new Visitor().VisitTerm(parser.term());
+            return new Visitor().VisitProgram(parser.program());
         }
     }
 }

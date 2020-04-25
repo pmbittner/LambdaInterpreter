@@ -4,7 +4,7 @@ using LambdaInterpreter.Parsing;
 
 namespace LambdaInterpreter
 {
-    class Program
+    static class MainClass
     {
         private static NameGenerator VariableNameGenerator;
         private static int CurrentNameIndex = 0;
@@ -21,7 +21,7 @@ namespace LambdaInterpreter
             Console.WriteLine($"{type} Evaluation:");
             
             options.EvalType = type;
-            Term result = program.Evaluated(options);
+            Term result = program.Interpreted(options);
             
             if (!options.PrintSteps)
             {
@@ -36,6 +36,8 @@ namespace LambdaInterpreter
                 Console.WriteLine("Error: No file to run given.");
                 return;
             }
+
+            Debug.Enabled = false;
             
             VariableNameGenerator = new NumericNameGenerator();
 

@@ -42,7 +42,7 @@ namespace LambdaInterpreter.model
 
         private void RenameParameter(Variable parameter)
         {
-            string newName = Program.GenerateVariableName();
+            string newName = MainClass.GenerateVariableName();
             Body.AlphaReduce(parameter.Name, newName);
             parameter.Name = newName;
         }
@@ -93,11 +93,11 @@ namespace LambdaInterpreter.model
             return this;
         }
 
-        internal override Term Eval(EvaluationOptions options)
+        internal override Term Evaluate(EvaluationOptions options)
         {
             if (options.EvalType == EvaluationOptions.Type.Applicative)
             {
-                Body = Body.Eval(options);
+                Body = Body.Evaluate(options);
             }
 
             return this;
