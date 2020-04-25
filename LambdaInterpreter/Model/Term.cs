@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Collections.Generic;
 using System.Diagnostics.Contracts;
-using Antlr;
 using Antlr4.Runtime.Misc;
-using Antlr4.Runtime.Tree.Xpath;
 
 namespace LambdaInterpreter.model
 {
@@ -45,6 +41,23 @@ namespace LambdaInterpreter.model
         }
 
         internal abstract Term Evaluate(EvaluationOptions options);
+
+        internal Term EmbedAliases(Dictionary<string, Alias> aliases)
+        {
+            List<Variable> freeVariables = GetFreeVariables();
+
+            Term res = this;
+            
+            foreach (Variable fv in freeVariables)
+            {
+                if (aliases.TryGetValue(fv.Name, out var alias))
+                {
+                    res = res.Substitute(fv, alias.Clone());
+                }
+            }
+
+            return res;
+        }
 
         public abstract Term Clone();
     }

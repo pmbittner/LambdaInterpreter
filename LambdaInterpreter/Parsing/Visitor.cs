@@ -24,6 +24,12 @@ namespace LambdaInterpreter.Parsing
                 Alias a = VisitAliasDefinition(aliasContext) as Alias;
                 Aliases[a!.Name] = a;
             }
+
+            foreach (KeyValuePair<string, Alias> kv in Aliases)
+            {
+                Alias a = kv.Value;
+                a.Body = a.Body.EmbedAliases(Aliases);
+            }
             
             Term res = VisitMain(context.main());
             Aliases = null;

@@ -23,7 +23,7 @@ namespace LambdaInterpreter
             options.EvalType = type;
             Term result = program.Interpreted(options);
             
-            if (!options.PrintSteps)
+            //if (!options.PrintSteps)
             {
                 Console.WriteLine(result);
             }
@@ -51,8 +51,8 @@ namespace LambdaInterpreter
             options.PrintSteps = true;
 
             run(program, EvaluationOptions.Type.Normative, options);
-            Console.WriteLine();
-            run(program, EvaluationOptions.Type.Applicative, options);
+            //Console.WriteLine();
+            //run(program, EvaluationOptions.Type.Applicative, options);
         }
     }
 }

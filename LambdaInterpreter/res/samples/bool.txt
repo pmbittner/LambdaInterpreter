@@ -1,0 +1,7 @@
+﻿true  := \a b. a;
+false := \a b. b;
+if    := \cond l r. cond l r;
+
+or    := \a b. a a b;
+and   := \a b. a b false;
+not   := \a. a false true;

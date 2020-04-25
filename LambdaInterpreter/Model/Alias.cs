@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace LambdaInterpreter.model
 {
@@ -17,7 +18,9 @@ namespace LambdaInterpreter.model
             Body = other.Body;
         }
         
-        public Term Body { get; private set; }
+        public Term Body { get; set; }
+
+        internal override void AddMyFreeVariablesTo(List<Variable> fv) {}
         
         public override void AlphaReduce(string oldVarName, string newVarName)
         {
